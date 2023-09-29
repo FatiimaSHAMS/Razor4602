@@ -1,0 +1,47 @@
+@page "/zodiac"
+@model Razor4602.Pages.ZodiacModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chinese Zodiac</title>
+    <style>
+        .result-box {
+            background-color: lightgreen;
+            padding: 10px;
+            margin: 20px 0;
+        }
+
+        .result-image {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h3>Enter year between 1900 and @Model.CurrentYear:</h3>
+    <form method="post" asp-page-handler="GetZodiacInfo">
+        <div class="row">
+            <div class="col">
+                <input type="text" asp-for="SelectedYear" class="form-control" />
+            </div>
+            <div class="col-2">
+                <button type="submit" class="btn btn-primary btn-block">Get Zodiac</button>
+            </div>
+        </div>
+    </form>
+
+    @if (!string.IsNullOrEmpty(Model.Zodiac))
+    {
+        <div class="result-box">
+            <p>Your Zodiac is @Model.Zodiac.</p>
+            <img src="@Model.ZodiacImage" alt="Zodiac Picture" class="result-image" />
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="result-box">
+            <p>@Model.ErrorMessage</p>
+        </div>
+    }
+</body>
+</html>
